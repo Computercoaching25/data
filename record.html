@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Record | CHITRAGUPT ACADEMY</title>
+  <style>
+    html, body {
+      font-size: 14px !important;
+      background: #f3f3f3;
+      margin: 0;
+      user-select: none;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      user-select: none;
+    }
+    .record-box {
+      width: 794px; /* A4 width at 96dpi */
+      margin: 30px auto;
+      background: #fff;
+      padding: 24px 32px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      border-radius: 10px;
+      box-sizing: border-box;
+    }
+    .header {
+      text-align: center;
+      border-bottom: 2px solid #444;
+      padding-bottom: 10px;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 24px;
+      color: #2e7d32;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .header h2 {
+      margin: 5px 0 0;
+      font-size: 14px;
+      color: #555;
+      font-weight: normal;
+    }
+    .section-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-top: 20px;
+      border-bottom: 1px dashed #aaa;
+      padding-bottom: 5px;
+      color: #333;
+      letter-spacing: 0.5px;
+    }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+    }
+    .label {
+      font-weight: bold;
+      font-size: 16px;
+      width: 180px;
+      color: #2e7d32;
+    }
+    .value {
+      flex: 1;
+      font-size: 14px;
+      color: #222;
+    }
+    .photo {
+      text-align: right;
+    }
+    .photo img {
+      width: 100px;
+      height: 120px;
+      object-fit: cover;
+      border: 2px solid #555;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+    table th, table td {
+      border: 1px solid #ccc;
+      padding: 6px;
+      text-align: center;
+    }
+    table th {
+      background: #e0f2f1;
+      font-size: 16px;
+      font-weight: bold;
+      color: #2e7d32;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 13px;
+      color: #777;
+    }
+    .buttons {
+      text-align: center;
+      margin: 20px;
+    }
+    .buttons button {
+      padding: 10px 28px;
+      margin: 5px;
+      background: #2e7d32;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 15px;
+      cursor: pointer;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      transition: background 0.2s;
+    }
+    .buttons button:hover {
+      background: #1b5e20;
+    }
+    @media print {
+      .buttons {
+        display: none;
+      }
+      .record-box {
+        box-shadow: none;
+        border: none;
+        margin: 0;
+        width: 100vw;
+        padding: 0;
+      }
+      body {
+        background: #fff;
+      }
+    }
+  </style>
+  <!-- NoPrint.js for copy/screenshot/print lock -->
+  <script language="javascript">
+    var noPrint = true;
+    var noCopy = true;
+    var noScreenshot = true;
+    var autoBlur = true;
+  </script>
+  <script type="text/javascript" src="https://pdfanticopy.com/noprint.js"></script>
+</head>
+<body oncontextmenu="return false;" ondragstart="return false;">
+  <div class="record-box" id="printRecord">
+    <!-- Data yahan JS se aayega -->
+  </div>
+  <div class="buttons">
+    <button onclick="window.print()">🖨️ Print Report</button>
+    <button onclick="window.close()">🔙 Close</button>
+  </div>
+<script>
+function getQueryParam(name) {
+  let url = new URL(window.location.href);
+  return url.searchParams.get(name);
+}
+function renderRecord(data) {
+  // Fees collection rows
+  let rows = '';
+  let grandTotal = 0;
+  // Handle both array (new) and string (old) formats for collection
+  let collectionArr = [];
+  try {
+    collectionArr = typeof data.collection === "string" && data.collection.trim().startsWith("[")
+      ? JSON.parse(data.collection)
+      : data.collection.split('|').map(r => {
+          let [pid, date, mon, amt, mode] = r.split(',');
+          return {pid, date, mon, amt, mode};
+        });
+  } catch {
+    collectionArr = [];
+  }
+  collectionArr.forEach(row => {
+    if (!row.pid) return;
+    rows += `<tr>
+      <td>${row.pid ? row.pid.trim() : ''}</td>
+      <td>${row.date ? row.date.trim() : ''}</td>
+      <td>${row.mon ? row.mon.trim() : ''}</td>
+      <td>₹ ${row.amt ? row.amt.trim() : ''}</td>
+      <td>${row.mode ? row.mode.trim() : ''}</td>
+    </tr>`;
+    grandTotal += parseFloat(row.amt || 0);
+  });
+  // Date
+  let today = new Date();
+  let dateStr = today.toLocaleDateString('en-IN', { day:'2-digit', month:'long', year:'numeric' });
+
+  document.getElementById('printRecord').innerHTML = `
+    <div class="header">
+      <h1>CHITRAGUPT ACADEMY</h1>
+      <h2>AN ISO CERTIFIED INSTITUTION</h2>
+    </div>
+    <div class="section-title">STUDENT DETAILS</div>
+    <div class="row">
+      <div>
+        <div><span class="label">ID:</span> <span class="value">${data.id}</span></div>
+        <div><span class="label">Name:</span> <span class="value">${data.name}</span></div>
+        <div><span class="label">Father's Name:</span> <span class="value">${data.father}</span></div>
+        <div><span class="label">Mother's Name:</span> <span class="value">${data.mother}</span></div>
+        <div><span class="label">Course:</span> <span class="value">${data.course}</span></div>
+        <div><span class="label">Admission Date:</span> <span class="value">${data.admission.split('-').reverse().join('-')}</span></div>
+        <div><span class="label">Mobile:</span> <span class="value">${data.mobile}</span></div>
+        <div><span class="label">Address:</span> <span class="value">${data.address}</span></div>
+      </div>
+      <div class="photo">
+        <img src="${data.photo || 'https://via.placeholder.com/100x120?text=Photo'}" alt="Student Photo">
+      </div>
+    </div>
+    <div class="section-title">FEES DETAIL</div>
+    <div class="row">
+      <div><span class="label">Course Fees:</span> ₹ ${data.course_fees}</div>
+      <div><span class="label">Form Fees:</span> ₹ ${data.form_fees}</div>
+      <div><span class="label">Discount:</span> ₹ ${data.discount}</div>
+    </div>
+    <div class="row">
+      <div><span class="label">Fees Payable:</span> ₹ ${data.payable}</div>
+      <div><span class="label">Paid Amount:</span> ₹ ${data.paid}</div>
+      <div><span class="label">Balance:</span> ₹ ${data.balance}</div>
+    </div>
+    <div class="section-title">FEES COLLECTION</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Payment ID</th>
+          <th>Date</th>
+          <th>Month</th>
+          <th>Amount</th>
+          <th>Payment Mode</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows}
+      </tbody>
+    </table>
+    <div class="row" style="margin-top: 10px;">
+      <div><strong>Grand Total:</strong> ₹ ${grandTotal.toFixed(2)}</div>
+      <div><strong>Date:</strong> ${dateStr}</div>
+    </div>
+    <div class="footer">© Pawan Soni | Generated Report</div>
+  `;
+}
+window.onload = function() {
+  let id = getQueryParam('id');
+  if (!id) { document.getElementById('printRecord').innerHTML = "No data!"; return; }
+  let data = localStorage.getItem("student_"+id);
+  if (!data) { document.getElementById('printRecord').innerHTML = "No record found!"; return; }
+  renderRecord(JSON.parse(data));
+};
+</script>
+</body>
+</html>
