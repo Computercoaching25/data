@@ -56,7 +56,7 @@
       font-size: 1.01rem;
       letter-spacing: 0.3px;
     }
-    input[type="text"], input[type="number"], input[type="date"] {
+    input[type="text"], input[type="number"], input[type="date"], select {
       width: 100%;
       padding: 9px 10px;
       margin-top: 5px;
@@ -66,7 +66,7 @@
       background: #fafafa;
       transition: border-color 0.2s;
     }
-    input:focus {
+    input:focus, select:focus {
       border-color: #43a047;
       outline: none;
       background: #f1f8e9;
@@ -91,11 +91,18 @@
       margin-bottom: 6px;
       align-items: center;
     }
-    .fees-row input {
+    .fees-row input, .fees-row select {
       width: 19%;
       min-width: 0;
       padding: 6px 5px;
       font-size: 0.97rem;
+    }
+    .fees-row input[type="date"] {
+      font-size: 0.97rem;
+      width: 21%;
+    }
+    .fees-row select {
+      width: 13%;
     }
     .fees-row .remove-row {
       background: #e53935;
@@ -160,12 +167,20 @@
       background: linear-gradient(90deg,#1e88e5 60%, #00e5ff 100%);
       color: #fff;
     }
+    .buttons button.delete-btn {
+      background: linear-gradient(90deg,#e53935 60%, #ff8a80 100%);
+      color: #fff;
+    }
     .buttons button:hover {
       box-shadow: 0 4px 16px rgba(67,160,71,0.14);
       filter: brightness(1.08);
     }
     .buttons button.print-btn:hover {
       box-shadow: 0 4px 16px rgba(30,136,229,0.13);
+      filter: brightness(1.09);
+    }
+    .buttons button.delete-btn:hover {
+      box-shadow: 0 4px 16px rgba(229,57,53,0.13);
       filter: brightness(1.09);
     }
     .search-box {
@@ -207,38 +222,32 @@
     @media (max-width: 600px) {
       .container { max-width: 99vw; padding: 0 0 20px 0;}
       form, .search-box { padding: 0 8px; }
-      .fees-row input { font-size: 0.91rem;}
+      .fees-row input, .fees-row select { font-size: 0.91rem;}
     }
   </style>
   <script>
     // --- COPY/SCREENSHOT LOCK ---
     document.addEventListener('DOMContentLoaded', function() {
-      // Disable right click
       document.body.oncontextmenu = function() { return false; };
-      // Disable text selection
       document.body.onselectstart = function() { return false; };
       document.body.onmousedown = function(e) {
         if (e.detail > 1) e.preventDefault();
       };
-      // Disable keyboard copy/cut/printscreen/screenshot
       document.addEventListener('keydown', function(e) {
-        // Ctrl+C, Ctrl+X, Ctrl+U, Ctrl+S, Ctrl+A, Ctrl+P, F12, PrintScreen, Windows+Shift+S
         if (
           (e.ctrlKey && ['c','x','u','s','a','p'].includes(e.key.toLowerCase())) ||
           e.key === 'F12' ||
           e.key === 'PrintScreen' ||
-          (e.key === 'S' && e.shiftKey && e.metaKey) // Windows+Shift+S
+          (e.key === 'S' && e.shiftKey && e.metaKey)
         ) {
           e.preventDefault();
           return false;
         }
-        // Block Windows+Shift+S for screenshot (best effort)
         if ((e.key === 'S' || e.key === 's') && e.shiftKey && (e.metaKey || e.ctrlKey)) {
           e.preventDefault();
           return false;
         }
       });
-      // Attempt to clear clipboard on PrintScreen (not fully reliable)
       window.addEventListener('keyup', function(e) {
         if (e.key === 'PrintScreen') {
           navigator.clipboard.writeText('');
@@ -252,6 +261,7 @@
 <div class="container">
   <div class="header-bar">
     <h1>CHITRAGUPT ACADEMY</h1>
+    <h2> AN ISO CERTIFIED INSTITUTE </h2>
     <span>Student Data Entry</span>
   </div>
   <form id="studentForm" autocomplete="off">
@@ -268,7 +278,15 @@
     <input type="text" name="mother" required placeholder="Mother's Name">
 
     <label>Course</label>
-    <input type="text" name="course" required placeholder="Course Name">
+    <select name="course" required>
+      <option value="">-- Select Course --</option>
+      <option value="Basic Computer">Basic Computer</option>
+      <option value="Advance Computer">Advance Computer</option>
+      <option value="CPCT & Typing">CPCT & Typing</option>
+      <option value="Web Design">Web Design</option>
+      <option value="Tally Prime">Tally Prime</option>
+      <option value="Website">Website</option>
+    </select>
 
     <label>Admission Date</label>
     <input type="date" name="admission" required>
@@ -310,6 +328,7 @@
     <div class="buttons">
       <button type="submit">💾 Save/Update</button>
       <button type="button" class="print-btn" onclick="printStudent()">🖨️ Print Record</button>
+      <button type="button" class="delete-btn" onclick="deleteRecord()">🗑️ Delete Record</button>
     </div>
   </form>
   <div class="search-box">
@@ -326,12 +345,18 @@ let feesRows = [];
 function addFeesRow(row={}) {
   const table = document.getElementById('feesCollectionTable');
   const idx = feesRows.length;
+  const months = [
+    "", "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
   const rowDiv = document.createElement('div');
   rowDiv.className = 'fees-row';
   rowDiv.innerHTML = `
     <input type="text" placeholder="ID" value="${row.pid||''}" style="width:13%;" maxlength="4">
-    <input type="text" placeholder="Date" value="${row.date||''}" style="width:21%;" maxlength="15">
-    <input type="text" placeholder="Month" value="${row.mon||''}" style="width:13%;" maxlength="10">
+    <input type="date" placeholder="Date" value="${row.date||''}" style="width:21%;">
+    <select style="width:13%;">${
+      months.map(m => `<option value="${m}"${row.mon===m?" selected":""}>${m}</option>`).join('')
+    }</select>
     <input type="number" placeholder="Amount" value="${row.amt||''}" style="width:18%;" step="0.01" min="0">
     <input type="text" placeholder="Mode" value="${row.mode||''}" style="width:19%;" maxlength="12">
     <button type="button" class="remove-row" title="Remove Row" onclick="removeFeesRow(this)">×</button>
@@ -346,11 +371,11 @@ function removeFeesRow(btn) {
 }
 function getFeesCollectionData() {
   return feesRows.map(row => {
-    const inputs = row.querySelectorAll('input');
+    const inputs = row.querySelectorAll('input, select');
     return {
       pid: inputs[0].value.trim(),
       date: inputs[1].value.trim(),
-      mon: inputs[2].value.trim(),
+      mon: inputs[2].tagName === "SELECT" ? inputs[2].value : inputs[2].value.trim(),
       amt: inputs[3].value.trim(),
       mode: inputs[4].value.trim()
     };
@@ -401,7 +426,7 @@ document.getElementById('studentForm').onsubmit = function(e) {
     name: f.name.value.trim(),
     father: f.father.value.trim(),
     mother: f.mother.value.trim(),
-    course: f.course.value.trim(),
+    course: f.course.value.trim() || f.course.value, // select value
     admission: f.admission.value,
     mobile: f.mobile.value.trim(),
     course_fees: f.course_fees.value,
@@ -436,6 +461,23 @@ function printStudent() {
     return;
   }
   window.open("record.html?id=" + encodeURIComponent(studentId), "_blank");
+}
+
+// --- DELETE BUTTON (Prompt for Student ID) ---
+function deleteRecord() {
+  let studentId = prompt("Enter Student ID to delete:");
+  if (!studentId) return;
+  studentId = studentId.trim();
+  if (!studentId) return;
+  let key = "student_" + studentId;
+  if (!localStorage.getItem(key)) {
+    alert("No record found for this Student ID!");
+    return;
+  }
+  if (confirm("Are you sure you want to delete the record for Student ID: " + studentId + "?")) {
+    localStorage.removeItem(key);
+    alert("Record deleted successfully!");
+  }
 }
 
 // --- SEARCH ---
