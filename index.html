@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Entry | CHITRAGUPT ACADEMY</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    body {
+      font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+      background: linear-gradient(135deg, #e8f5e9 0%, #f3e5f5 100%);
+      margin: 0;
+      min-height: 100vh;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    .container {
+      width: 98%;
+      max-width: 570px;
+      margin: 40px auto 30px auto;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 8px 32px rgba(44,62,80,0.13), 0 1.5px 6px rgba(46,125,50,0.10);
+      padding: 0 0 28px 0;
+      overflow: hidden;
+    }
+    .header-bar {
+      background: linear-gradient(90deg, #43a047 0%, #1de9b6 100%);
+      color: #fff;
+      text-align: center;
+      padding: 35px 20px 18px 20px;
+      border-bottom-left-radius: 60px 30px;
+      border-bottom-right-radius: 60px 30px;
+    }
+    .header-bar h1 {
+      margin: 0 0 7px 0;
+      font-size: 2.2rem;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+    .header-bar span {
+      font-size: 1.02rem;
+      font-weight: 400;
+      opacity: 0.92;
+    }
+    form {
+      margin: 0;
+      padding: 0 24px;
+    }
+    label {
+      display: block;
+      margin-top: 17px;
+      font-weight: 500;
+      color: #2e7d32;
+      font-size: 1.01rem;
+      letter-spacing: 0.3px;
+    }
+    input[type="text"], input[type="number"], input[type="date"] {
+      width: 100%;
+      padding: 9px 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1.5px solid #bdbdbd;
+      font-size: 1.05rem;
+      background: #fafafa;
+      transition: border-color 0.2s;
+    }
+    input:focus {
+      border-color: #43a047;
+      outline: none;
+      background: #f1f8e9;
+    }
+    input[readonly] {
+      background: #f1f8e9 !important;
+      color: #333;
+      font-weight: 600;
+      cursor: not-allowed;
+    }
+    .fees-collection-table {
+      width: 100%;
+      margin-top: 7px;
+      border-radius: 8px;
+      background: #f5f5f5;
+      padding: 10px 10px 3px 10px;
+      box-sizing: border-box;
+    }
+    .fees-row {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 6px;
+      align-items: center;
+    }
+    .fees-row input {
+      width: 19%;
+      min-width: 0;
+      padding: 6px 5px;
+      font-size: 0.97rem;
+    }
+    .fees-row .remove-row {
+      background: #e53935;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      font-size: 1.1rem;
+      padding: 0 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-left: 2px;
+    }
+    .fees-row .remove-row:hover {
+      background: #b71c1c;
+    }
+    .add-row-btn {
+      background: #43a047;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 1.01rem;
+      padding: 4px 16px;
+      margin-top: 2px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .add-row-btn:hover {
+      background: #00796b;
+    }
+    .photo-preview {
+      margin-top: 15px;
+      text-align: center;
+    }
+    .photo-preview img {
+      width: 110px;
+      height: 130px;
+      object-fit: cover;
+      border: 3px solid #43a047;
+      border-radius: 8px;
+      background: #f3f3f3;
+      box-shadow: 0 2px 10px rgba(67,160,71,0.10);
+    }
+    .buttons {
+      text-align: center;
+      margin: 25px 0 0 0;
+    }
+    .buttons button {
+      padding: 12px 32px;
+      margin: 5px 10px;
+      background: linear-gradient(90deg,#43a047 60%, #1de9b6 100%);
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      font-size: 1.08rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(67,160,71,0.09);
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .buttons button.print-btn {
+      background: linear-gradient(90deg,#1e88e5 60%, #00e5ff 100%);
+      color: #fff;
+    }
+    .buttons button:hover {
+      box-shadow: 0 4px 16px rgba(67,160,71,0.14);
+      filter: brightness(1.08);
+    }
+    .buttons button.print-btn:hover {
+      box-shadow: 0 4px 16px rgba(30,136,229,0.13);
+      filter: brightness(1.09);
+    }
+    .search-box {
+      text-align: center;
+      margin: 30px 0 0 0;
+      padding: 0 24px;
+    }
+    .search-box input {
+      width: 210px;
+      padding: 9px 8px;
+      border-radius: 6px;
+      border: 1.5px solid #bdbdbd;
+      font-size: 1.03rem;
+      background: #fafafa;
+      margin-right: 8px;
+      transition: border-color 0.2s;
+    }
+    .search-box input:focus {
+      border-color: #1e88e5;
+      background: #e3f2fd;
+    }
+    .search-box button {
+      padding: 9px 22px;
+      background: linear-gradient(90deg,#1e88e5 60%, #00e5ff 100%);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.06rem;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 6px rgba(30,136,229,0.09);
+    }
+    .search-box button:hover {
+      box-shadow: 0 4px 16px rgba(30,136,229,0.13);
+      filter: brightness(1.09);
+    }
+    @media (max-width: 600px) {
+      .container { max-width: 99vw; padding: 0 0 20px 0;}
+      form, .search-box { padding: 0 8px; }
+      .fees-row input { font-size: 0.91rem;}
+    }
+  </style>
+  <script>
+    // --- COPY/SCREENSHOT LOCK ---
+    document.addEventListener('DOMContentLoaded', function() {
+      // Disable right click
+      document.body.oncontextmenu = function() { return false; };
+      // Disable text selection
+      document.body.onselectstart = function() { return false; };
+      document.body.onmousedown = function(e) {
+        if (e.detail > 1) e.preventDefault();
+      };
+      // Disable keyboard copy/cut/printscreen/screenshot
+      document.addEventListener('keydown', function(e) {
+        // Ctrl+C, Ctrl+X, Ctrl+U, Ctrl+S, Ctrl+A, Ctrl+P, F12, PrintScreen, Windows+Shift+S
+        if (
+          (e.ctrlKey && ['c','x','u','s','a','p'].includes(e.key.toLowerCase())) ||
+          e.key === 'F12' ||
+          e.key === 'PrintScreen' ||
+          (e.key === 'S' && e.shiftKey && e.metaKey) // Windows+Shift+S
+        ) {
+          e.preventDefault();
+          return false;
+        }
+        // Block Windows+Shift+S for screenshot (best effort)
+        if ((e.key === 'S' || e.key === 's') && e.shiftKey && (e.metaKey || e.ctrlKey)) {
+          e.preventDefault();
+          return false;
+        }
+      });
+      // Attempt to clear clipboard on PrintScreen (not fully reliable)
+      window.addEventListener('keyup', function(e) {
+        if (e.key === 'PrintScreen') {
+          navigator.clipboard.writeText('');
+          alert('Screenshot is disabled on this page.');
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+<div class="container">
+  <div class="header-bar">
+    <h1>CHITRAGUPT ACADEMY</h1>
+    <span>Student Data Entry</span>
+  </div>
+  <form id="studentForm" autocomplete="off">
+    <label>Student ID</label>
+    <input type="text" name="id" required placeholder="Enter unique ID">
+
+    <label>Name</label>
+    <input type="text" name="name" required placeholder="Full Name">
+
+    <label>Father's Name</label>
+    <input type="text" name="father" required placeholder="Father's Name">
+
+    <label>Mother's Name</label>
+    <input type="text" name="mother" required placeholder="Mother's Name">
+
+    <label>Course</label>
+    <input type="text" name="course" required placeholder="Course Name">
+
+    <label>Admission Date</label>
+    <input type="date" name="admission" required>
+
+    <label>Mobile</label>
+    <input type="text" name="mobile" required maxlength="15" placeholder="Mobile Number">
+
+    <label>Course Fees</label>
+    <input type="number" id="course_fees" name="course_fees" required placeholder="e.g. 400">
+
+    <label>Form Fees</label>
+    <input type="number" id="form_fees" name="form_fees" required placeholder="e.g. 100">
+
+    <label>Discount</label>
+    <input type="number" id="discount" name="discount" required placeholder="e.g. 50">
+
+    <label>Fees Payable</label>
+    <input type="number" id="payable" name="payable" required placeholder="e.g. 450" readonly style="background:#f1f8e9;">
+
+    <label>Paid Amount</label>
+    <input type="number" id="paid" name="paid" required placeholder="e.g. 450">
+
+    <label>Balance</label>
+    <input type="number" id="balance" name="balance" required placeholder="e.g. 0" readonly style="background:#f1f8e9;">
+
+    <label>Fees Collection</label>
+    <div class="fees-collection-table" id="feesCollectionTable">
+      <!-- Dynamic rows here -->
+    </div>
+    <button type="button" class="add-row-btn" onclick="addFeesRow()">+ Add Row</button>
+
+    <label>Photo</label>
+    <input type="file" name="photo" accept="image/*" onchange="previewPhoto(event)">
+    <div class="photo-preview" id="photoPreview"></div>
+
+    <label>Address</label>
+    <input type="text" name="address" required placeholder="Full Address">
+
+    <div class="buttons">
+      <button type="submit">💾 Save/Update</button>
+      <button type="button" class="print-btn" onclick="printStudent()">🖨️ Print Record</button>
+    </div>
+  </form>
+  <div class="search-box">
+    <input type="text" id="searchId" placeholder="Enter Student ID or Name">
+    <button onclick="searchRecord()">View/Print</button>
+  </div>
+</div>
+
+<script>
+let photoData = "";
+let feesRows = [];
+
+// --- FEES COLLECTION DYNAMIC ROWS ---
+function addFeesRow(row={}) {
+  const table = document.getElementById('feesCollectionTable');
+  const idx = feesRows.length;
+  const rowDiv = document.createElement('div');
+  rowDiv.className = 'fees-row';
+  rowDiv.innerHTML = `
+    <input type="text" placeholder="ID" value="${row.pid||''}" style="width:13%;" maxlength="4">
+    <input type="text" placeholder="Date" value="${row.date||''}" style="width:21%;" maxlength="15">
+    <input type="text" placeholder="Month" value="${row.mon||''}" style="width:13%;" maxlength="10">
+    <input type="number" placeholder="Amount" value="${row.amt||''}" style="width:18%;" step="0.01" min="0">
+    <input type="text" placeholder="Mode" value="${row.mode||''}" style="width:19%;" maxlength="12">
+    <button type="button" class="remove-row" title="Remove Row" onclick="removeFeesRow(this)">×</button>
+  `;
+  table.appendChild(rowDiv);
+  feesRows.push(rowDiv);
+}
+function removeFeesRow(btn) {
+  const rowDiv = btn.parentNode;
+  rowDiv.remove();
+  feesRows = feesRows.filter(r => r !== rowDiv);
+}
+function getFeesCollectionData() {
+  return feesRows.map(row => {
+    const inputs = row.querySelectorAll('input');
+    return {
+      pid: inputs[0].value.trim(),
+      date: inputs[1].value.trim(),
+      mon: inputs[2].value.trim(),
+      amt: inputs[3].value.trim(),
+      mode: inputs[4].value.trim()
+    };
+  }).filter(r => r.pid || r.date || r.mon || r.amt || r.mode);
+}
+function setFeesCollectionRows(collectionArr) {
+  document.getElementById('feesCollectionTable').innerHTML = '';
+  feesRows = [];
+  (collectionArr||[]).forEach(row => addFeesRow(row));
+}
+
+// --- PHOTO PREVIEW ---
+function previewPhoto(event) {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      photoData = e.target.result;
+      document.getElementById('photoPreview').innerHTML = `<img src="${photoData}">`;
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+// --- AUTO CALCULATE FEES PAYABLE & BALANCE ---
+function updatePayableAndBalance() {
+  let course = parseFloat(document.getElementById('course_fees').value) || 0;
+  let form = parseFloat(document.getElementById('form_fees').value) || 0;
+  let discount = parseFloat(document.getElementById('discount').value) || 0;
+  let paid = parseFloat(document.getElementById('paid').value) || 0;
+  let payable = course + form - discount;
+  if (payable < 0) payable = 0;
+  document.getElementById('payable').value = payable.toFixed(2);
+  let balance = payable - paid;
+  if (balance < 0) balance = 0;
+  document.getElementById('balance').value = balance.toFixed(2);
+}
+['course_fees','form_fees','discount','paid'].forEach(function(id){
+  document.getElementById(id).addEventListener('input', updatePayableAndBalance);
+});
+
+// --- SAVE DATA ---
+document.getElementById('studentForm').onsubmit = function(e) {
+  e.preventDefault();
+  const f = e.target;
+  const data = {
+    id: f.id.value.trim(),
+    name: f.name.value.trim(),
+    father: f.father.value.trim(),
+    mother: f.mother.value.trim(),
+    course: f.course.value.trim(),
+    admission: f.admission.value,
+    mobile: f.mobile.value.trim(),
+    course_fees: f.course_fees.value,
+    form_fees: f.form_fees.value,
+    discount: f.discount.value,
+    payable: f.payable.value,
+    paid: f.paid.value,
+    balance: f.balance.value,
+    collection: JSON.stringify(getFeesCollectionData()),
+    photo: photoData,
+    address: f.address.value.trim()
+  };
+  if (!data.id) return alert("Student ID required!");
+  localStorage.setItem("student_"+data.id, JSON.stringify(data));
+  alert("Data saved/updated!");
+  f.reset();
+  document.getElementById('photoPreview').innerHTML = "";
+  photoData = "";
+  setFeesCollectionRows([]);
+  updatePayableAndBalance();
+};
+
+// --- PRINT BUTTON (Prompt for Student ID) ---
+function printStudent() {
+  let studentId = prompt("Enter Student ID to print:");
+  if (!studentId) return;
+  studentId = studentId.trim();
+  if (!studentId) return;
+  let data = localStorage.getItem("student_" + studentId);
+  if (!data) {
+    alert("No record found for this Student ID!");
+    return;
+  }
+  window.open("record.html?id=" + encodeURIComponent(studentId), "_blank");
+}
+
+// --- SEARCH ---
+function searchRecord() {
+  let q = document.getElementById('searchId').value.trim().toLowerCase();
+  if (!q) return alert("Enter Student ID or Name!");
+  let data = localStorage.getItem("student_"+q);
+  if (data) {
+    window.open("record.html?id="+encodeURIComponent(q), "_blank");
+    return;
+  }
+  for (let i=0; i<localStorage.length; i++) {
+    let key = localStorage.key(i);
+    if (key.startsWith("student_")) {
+      let d = JSON.parse(localStorage.getItem(key));
+      if (d.name.toLowerCase() === q) {
+        window.open("record.html?id="+encodeURIComponent(d.id), "_blank");
+        return;
+      }
+    }
+  }
+  alert("No record found!");
+}
+
+// --- INIT: Add 1 fees row by default ---
+addFeesRow();
+updatePayableAndBalance();
+</script>
+</body>
+</html>
