@@ -13,7 +13,6 @@
     }
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
-      user-select: none;
     }
     .record-box {
       width: 820px;
@@ -28,9 +27,6 @@
     }
     .header {
       text-align: center;
-      border-bottom: none;
-      padding-bottom: 0;
-      margin-bottom: 0;
     }
     .header h1 {
       margin: 0;
@@ -57,13 +53,11 @@
       font-size: 15px;
       color: #333;
       font-weight: 600;
-      letter-spacing: 0.5px;
     }
     .double-line {
       border: none;
       border-top: 3.5px double #4caf50;
-      margin: 0 0 18px 0;
-      height: 0;
+      margin-bottom: 18px;
     }
     .section-title {
       font-size: 18px;
@@ -72,7 +66,6 @@
       border-bottom: 1.5px dashed #b2dfdb;
       padding-bottom: 6px;
       color: #176d4d;
-      letter-spacing: 0.7px;
       background: linear-gradient(90deg, #e0ffe7 0%, #fff 100%);
     }
     .row {
@@ -86,7 +79,6 @@
       font-size: 16px;
       width: 185px;
       color: #218838;
-      letter-spacing: 0.3px;
     }
     .value {
       flex: 1;
@@ -112,7 +104,6 @@
       font-size: 15px;
       background: #f9fffb;
       border-radius: 8px;
-      overflow: hidden;
     }
     table th, table td {
       border: 1.5px solid #b2dfdb;
@@ -124,7 +115,6 @@
       font-size: 16px;
       font-weight: bold;
       color: #176d4d;
-      letter-spacing: 0.5px;
     }
     table tr:nth-child(even) td {
       background: #f3f9f7;
@@ -134,7 +124,6 @@
       margin-top: 18px;
       font-size: 13.5px;
       color: #646464;
-      letter-spacing: 0.3px;
     }
     .academy-address-box {
       margin: 30px auto 6px auto;
@@ -151,19 +140,11 @@
       font-weight: 900;
       color: #01301f;
       margin-bottom: 5px;
-      letter-spacing: 0.5px;
     }
-    .academy-address {
+    .academy-address, .academy-contact {
       font-size: 16px;
       color: #333;
-      margin-bottom: 2px;
       font-weight: 700;
-    }
-    .academy-contact {
-      font-size: 16px;
-      color: #022c05;
-      font-weight: 700;
-      letter-spacing: 0.5px;
     }
     .buttons {
       text-align: center;
@@ -179,30 +160,18 @@
       font-size: 16px;
       cursor: pointer;
       font-weight: bold;
-      letter-spacing: 0.5px;
-      box-shadow: 0 2px 6px #e0ffe7;
-      transition: background 0.18s, box-shadow 0.18s;
     }
     .buttons button:hover {
       background: #176d4d;
-      box-shadow: 0 4px 12px #b2dfdb;
     }
-    /* Hide all .noprint elements when printing */
     @media print {
       .noprint {
         display: none !important;
-      }
-      .buttons {
-        display: none !important;
-      }
-      body {
-        background: #fff !important;
       }
       .record-box, .academy-address-box {
         box-shadow: none !important;
         border: none !important;
       }
-      /* Reduce page margins for print */
       @page {
         margin: 10mm 15mm;
       }
@@ -210,131 +179,108 @@
   </style>
 </head>
 <body oncontextmenu="return false;" ondragstart="return false;">
-  <!-- Hide this line and anything else above record in print -->
-  <div class="record-box" id="printRecord"></div>
-  <div class="academy-address-box">
-    <div class="academy-address-label">COACHING ADDRESS</div>
-    <div class="academy-address">
-      Nearest of Govt. Girls Hr. Sec. School, Rajendra Ward Sohagpur, Dist. Naramadapuram (M.P.)
-    </div>
-    <div class="academy-contact">
-      Contact No. : 990708044, 7067779214, 8319172574
-    </div>
-  </div>
-  <div class="buttons noprint">
-    <button onclick="window.print()">🖨️ Print Report</button>
-    <button onclick="window.close()">🔙 Close</button>
-  </div>
-<script>
-function getQueryParam(name) {
-  let url = new URL(window.location.href);
-  return url.searchParams.get(name);
-}
-function renderRecord(data) {
-  // Fees collection rows
-  let rows = '';
-  let grandTotal = 0;
-  let collectionArr = [];
-  try {
-    collectionArr = typeof data.collection === "string" && data.collection.trim().startsWith("[")
-      ? JSON.parse(data.collection)
-      : data.collection.split('|').map(r => {
-          let [pid, date, mon, amt, mode] = r.split(',');
-          return {pid, date, mon, amt, mode};
-        });
-  } catch {
-    collectionArr = [];
-  }
-  collectionArr.forEach(row => {
-    if (!row.pid) return;
-    rows += `<tr>
-      <td>${row.pid ? row.pid.trim() : ''}</td>
-      <td>${row.date ? row.date.trim() : ''}</td>
-      <td>${row.mon ? row.mon.trim() : ''}</td>
-      <td>₹ ${row.amt ? row.amt.trim() : ''}</td>
-      <td>${row.mode ? row.mode.trim() : ''}</td>
-    </tr>`;
-    grandTotal += parseFloat(row.amt || 0);
-  });
-  // Date
-  let today = new Date();
-  let dateStr = today.toLocaleDateString('en-IN', { day:'2-digit', month:'long', year:'numeric' });
 
-  document.getElementById('printRecord').innerHTML = `
-    <div class="header">
-      <h1>CHITRAGUPT ACADEMY</h1>
-      <h2>AN ISO CERTIFIED INSTITUTION</h2>
-      <div class="header-details">
-        <div class="director">Director : Mr. Ashish Kumar Khare</div>
-        <div class="teacher">Computer Teacher : Mr. Pawan Soni</div>
+<div class="record-box" id="printRecord"></div>
+
+<div class="academy-address-box">
+  <div class="academy-address-label">COACHING ADDRESS</div>
+  <div class="academy-address">
+    Nearest of Govt. Girls Hr. Sec. School, Rajendra Ward Sohagpur, Dist. Naramadapuram (M.P.)
+  </div>
+  <div class="academy-contact">
+    Contact No.: 990708044, 7067779214, 8319172574
+  </div>
+</div>
+
+<div class="buttons noprint">
+  <button onclick="window.print()">🖨️ Print Report</button>
+  <button onclick="window.close()">🔙 Close</button>
+</div>
+
+<script>
+  const data = {
+    id: "STU2025-013",
+    name: "Rahul Verma",
+    father: "Suresh Verma",
+    mother: "Meena Verma",
+    course: "Basic Computer Course",
+    admission: "2025-05-12",
+    mobile: "9876543210",
+    address: "Ward No. 6, Sohagpur",
+    photo: "https://via.placeholder.com/108x128?text=Photo",
+    collection: "R001,2025-05-15,May,800,Cash|R002,2025-06-10,June,800,Online"
+  };
+
+  function renderRecord(data) {
+    let rows = '';
+    let grandTotal = 0;
+    let collectionArr = [];
+
+    try {
+      collectionArr = typeof data.collection === "string" && data.collection.trim().startsWith("[")
+        ? JSON.parse(data.collection)
+        : data.collection.split('|').map(r => {
+            let [pid, date, mon, amt, mode] = r.split(',');
+            return {pid, date, mon, amt, mode};
+          });
+    } catch {
+      collectionArr = [];
+    }
+collectionArr.forEach(row => {
+  if (!row.pid) return;
+  
+  // Convert date format from yyyy-mm-dd to dd-mm-yyyy
+  let formattedDate = row.date.includes('-') ? row.date.trim().split('-').reverse().join('-') : row.date.trim();
+
+  rows += `<tr>
+    <td>${row.pid.trim()}</td>
+    <td>${formattedDate}</td>
+    <td>${row.mon.trim()}</td>
+    <td>₹ ${row.amt.trim()}</td>
+    <td>${row.mode.trim()}</td>
+  </tr>`;
+  grandTotal += parseFloat(row.amt || 0);
+});
+
+    document.getElementById('printRecord').innerHTML = `
+      <div class="header">
+        <h1>CHITRAGUPT ACADEMY</h1>
+        <h2>AN ISO CERTIFIED INSTITUTION</h2>
+        <div class="header-details">
+          <div class="director">Director : Mr. Ashish Kumar Khare</div>
+          <div class="teacher">Computer Teacher : Mr. Pawan Soni</div>
+        </div>
+        <hr class="double-line">
       </div>
-      <hr class="double-line">
-    </div>
-    <div class="section-title">STUDENT DETAILS</div>
-    <div class="row">
-      <div>
-        <div><span class="label">ID:</span> <span class="value">${data.id}</span></div>
-        <div><span class="label">Name:</span> <span class="value">${data.name}</span></div>
-        <div><span class="label">Father's Name:</span> <span class="value">${data.father}</span></div>
-        <div><span class="label">Mother's Name:</span> <span class="value">${data.mother}</span></div>
-        <div><span class="label">Course:</span> <span class="value">${data.course}</span></div>
-        <div><span class="label">Admission Date:</span> <span class="value">${data.admission.split('-').reverse().join('-')}</span></div>
-        <div><span class="label">Mobile:</span> <span class="value">${data.mobile}</span></div>
-        <div><span class="label">Address:</span> <span class="value">${data.address}</span></div>
+      <div class="section-title">STUDENT DETAILS</div>
+      <div class="row">
+        <div>
+          <div><span class="label">ID:</span> <span class="value">${data.id}</span></div>
+          <div><span class="label">Name:</span> <span class="value">${data.name}</span></div>
+          <div><span class="label">Father's Name:</span> <span class="value">${data.father}</span></div>
+          <div><span class="label">Mother's Name:</span> <span class="value">${data.mother}</span></div>
+          <div><span class="label">Course:</span> <span class="value">${data.course}</span></div>
+          <div><span class="label">Admission Date:</span> <span class="value">${data.admission.split('-').reverse().join('-')}</span></div>
+          <div><span class="label">Mobile:</span> <span class="value">${data.mobile}</span></div>
+          <div><span class="label">Address:</span> <span class="value">${data.address}</span></div>
+        </div>
+        <div class="photo">
+          <img src="${data.photo}" alt="Student Photo">
+        </div>
       </div>
-      <div class="photo">
-        <img src="${data.photo || 'https://via.placeholder.com/100x120?text=Photo'}" alt="Student Photo">
-      </div>
-    </div>
-    <div class="section-title">FEES DETAIL</div>
-    <div class="row">
-      <div><span class="label">Course Fees:</span> ₹ ${data.course_fees}</div>
-      <div><span class="label">Form Fees:</span> ₹ ${data.form_fees}</div>
-      <div><span class="label">Discount:</span> ₹ ${data.discount}</div>
-    </div>
-    <div class="row">
-      <div><span class="label">Fees Payable:</span> ₹ ${data.payable}</div>
-      <div><span class="label">Paid Amount:</span> ₹ ${data.paid}</div>
-      <div><span class="label">Balance:</span> ₹ ${data.balance}</div>
-    </div>
-    <div class="section-title">FEES COLLECTION</div>
-    <table>
-      <thead>
-        <tr>
-          <th>Payment ID</th>
-          <th>Date</th>
-          <th>Month</th>
-          <th>Amount</th>
-          <th>Payment Mode</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${rows}
-      </tbody>
-    </table>
-    <div class="row" style="margin-top: 12px;">
-      <div><strong>Grand Total:</strong> ₹ ${grandTotal.toFixed(2)}</div>
-      <div><strong>Date:</strong> ${dateStr}</div>
-    </div>
-    <div class="footer">© Pawan Soni | Generated Report</div>
-  `;
-}
-window.onload = function() {
-  let id = getQueryParam('id');
-  if (!id) { document.getElementById('printRecord').innerHTML = "No data!"; return; }
-  let data = localStorage.getItem("student_"+id);
-  if (!data) { document.getElementById('printRecord').innerHTML = "No record found!"; return; }
-  renderRecord(JSON.parse(data));
-};
+      <div class="section-title">FEES COLLECTION</div>
+      <table>
+        <thead>
+          <tr><th>Receipt No.</th><th>Date</th><th>Month</th><th>Amount</th><th>Payment Mode</th></tr>
+        </thead>
+        <tbody>${rows}</tbody>
+        <tfoot><tr><td colspan="3"><strong>Total Paid</strong></td><td colspan="2"><strong>₹ ${grandTotal.toFixed(2)}</strong></td></tr></tfoot>
+      </table>
+    `;
+  }
+
+  renderRecord(data);
 </script>
-<!--
-======================
-PRINTING INSTRUCTIONS:
-======================
-To remove the date, time, title, URL, and file name from the print page,
-when you press Print (Ctrl+P), go to "More settings" and uncheck "Headers and footers".
-This is a browser setting and cannot be controlled by code.
-======================
--->
+
 </body>
 </html>
