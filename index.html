@@ -57,7 +57,7 @@
       letter-spacing: 0.3px;
     }
     input[type="text"], input[type="number"], input[type="date"], select {
-      width: 100%;
+      width: 96%;
       padding: 9px 10px;
       margin-top: 5px;
       border-radius: 6px;
@@ -188,6 +188,13 @@
       margin: 30px 0 0 0;
       padding: 0 24px;
     }
+    .footer {
+      text-align: center;
+      margin-top: 18px;
+      font-size: 14px;
+      color: #1b1a1a;
+      letter-spacing: 0.3px;
+    }
     .search-box input {
       width: 210px;
       padding: 9px 8px;
@@ -262,7 +269,7 @@
   <div class="header-bar">
     <h1>CHITRAGUPT ACADEMY</h1>
     <h2> AN ISO CERTIFIED INSTITUTE </h2>
-    <span>Student Data Entry</span>
+    <span>Student Details</span>
   </div>
   <form id="studentForm" autocomplete="off">
     <label>Student ID</label>
@@ -312,21 +319,22 @@
     <label>Balance</label>
     <input type="number" id="balance" name="balance" required placeholder="e.g. 0" readonly style="background:#f1f8e9;">
 
+    <label>Address</label>
+    <input type="text" name="address" required placeholder="Full Address">
+    
+    <label>Photo</label>
+    <input type="file" name="photo" accept="image/*" onchange="previewPhoto(event)">
+    <div class="photo-preview" id="photoPreview"></div>
+
     <label>Fees Collection</label>
     <div class="fees-collection-table" id="feesCollectionTable">
       <!-- Dynamic rows here -->
     </div>
     <button type="button" class="add-row-btn" onclick="addFeesRow()">+ Add Row</button>
 
-    <label>Photo</label>
-    <input type="file" name="photo" accept="image/*" onchange="previewPhoto(event)">
-    <div class="photo-preview" id="photoPreview"></div>
-
-    <label>Address</label>
-    <input type="text" name="address" required placeholder="Full Address">
-
+   
     <div class="buttons">
-      <button type="submit">💾 Save/Update</button>
+      <button type="submit">💾 Save/Update</button><BR>
       <button type="button" class="print-btn" onclick="printStudent()">🖨️ Print Record</button>
       <button type="button" class="delete-btn" onclick="deleteRecord()">🗑️ Delete Record</button>
     </div>
@@ -506,5 +514,6 @@ function searchRecord() {
 addFeesRow();
 updatePayableAndBalance();
 </script>
+  <div class="footer">© Pawan Soni</div>
 </body>
 </html>
