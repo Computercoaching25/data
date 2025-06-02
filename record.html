@@ -3,151 +3,225 @@
 <head>
   <meta charset="UTF-8">
   <title>Student Record | CHITRAGUPT ACADEMY</title>
+  <link href="https://fonts.googleapis.com/css?family=Segoe+UI:400,700&display=swap" rel="stylesheet">
   <style>
     html, body {
-      font-size: 14px !important;
-      background: #f3f3f3;
+      font-size: 15px !important;
+      background: #f5f7fa;
       margin: 0;
       user-select: none;
     }
     body {
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Segoe UI', Arial, sans-serif;
       user-select: none;
     }
     .record-box {
-      width: 794px; /* A4 width at 96dpi */
-      margin: 30px auto;
+      width: 820px;
+      margin: 36px auto;
       background: #fff;
-      padding: 24px 32px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
-      border-radius: 10px;
+      padding: 28px 38px 18px 38px;
+      box-shadow: 0 4px 32px 0 rgba(44,62,80,0.13);
+      border-radius: 14px;
       box-sizing: border-box;
+      border: 1.5px solid #e0e0e0;
+      position: relative;
     }
     .header {
       text-align: center;
-      border-bottom: 2px solid #444;
-      padding-bottom: 10px;
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
     }
     .header h1 {
       margin: 0;
-      font-size: 24px;
-      color: #2e7d32;
-      font-weight: bold;
-      letter-spacing: 1px;
+      font-size: 28px;
+      color: #218838;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-shadow: 0 2px 6px #e0ffe7;
     }
     .header h2 {
-      margin: 5px 0 0;
-      font-size: 14px;
+      margin: 7px 0 0;
+      font-size: 15.5px;
       color: #555;
-      font-weight: normal;
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+    .header-details {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 18px 0 8px 0;
+    }
+    .director, .teacher {
+      font-size: 15px;
+      color: #333;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .double-line {
+      border: none;
+      border-top: 3.5px double #4caf50;
+      margin: 0 0 18px 0;
+      height: 0;
     }
     .section-title {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: bold;
-      margin-top: 20px;
-      border-bottom: 1px dashed #aaa;
-      padding-bottom: 5px;
-      color: #333;
-      letter-spacing: 0.5px;
+      margin-top: 22px;
+      border-bottom: 1.5px dashed #b2dfdb;
+      padding-bottom: 6px;
+      color: #176d4d;
+      letter-spacing: 0.7px;
+      background: linear-gradient(90deg, #e0ffe7 0%, #fff 100%);
     }
     .row {
       display: flex;
       justify-content: space-between;
-      margin: 10px 0;
+      margin: 12px 0;
+      gap: 24px;
     }
     .label {
       font-weight: bold;
       font-size: 16px;
-      width: 180px;
-      color: #2e7d32;
+      width: 185px;
+      color: #218838;
+      letter-spacing: 0.3px;
     }
     .value {
       flex: 1;
-      font-size: 14px;
+      font-size: 15px;
       color: #222;
     }
     .photo {
       text-align: right;
     }
     .photo img {
-      width: 100px;
-      height: 120px;
+      width: 108px;
+      height: 128px;
       object-fit: cover;
-      border: 2px solid #555;
+      border: 2.5px solid #218838;
+      border-radius: 8px;
+      background: #f8f8f8;
+      box-shadow: 0 2px 8px #e0ffe7;
     }
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 15px;
-      font-size: 14px;
+      margin-top: 17px;
+      font-size: 15px;
+      background: #f9fffb;
+      border-radius: 8px;
+      overflow: hidden;
     }
     table th, table td {
-      border: 1px solid #ccc;
-      padding: 6px;
+      border: 1.5px solid #b2dfdb;
+      padding: 7px 0;
       text-align: center;
     }
     table th {
-      background: #e0f2f1;
+      background: #b2dfdb;
       font-size: 16px;
       font-weight: bold;
-      color: #2e7d32;
+      color: #176d4d;
+      letter-spacing: 0.5px;
+    }
+    table tr:nth-child(even) td {
+      background: #f3f9f7;
     }
     .footer {
       text-align: center;
-      margin-top: 20px;
-      font-size: 13px;
-      color: #777;
+      margin-top: 18px;
+      font-size: 13.5px;
+      color: #646464;
+      letter-spacing: 0.3px;
+    }
+    .academy-address-box {
+      margin: 30px auto 6px auto;
+      text-align: center;
+      background: linear-gradient(90deg,#e0f7fa 0%, #fff 100%);
+      border-radius: 8px;
+      padding: 14px 0 10px 0;
+      border: 1.5px solid #b2dfdb;
+      width: 97%;
+      box-shadow: 0 1px 8px #e0ffe7;
+    }
+    .academy-address-label {
+      font-size: 18px;
+      font-weight: 900;
+      color: #01301f;
+      margin-bottom: 5px;
+      letter-spacing: 0.5px;
+    }
+    .academy-address {
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 2px;
+      font-weight: 700;
+    }
+    .academy-contact {
+      font-size: 16px;
+      color: #022c05;
+      font-weight: 700;
+      letter-spacing: 0.5px;
     }
     .buttons {
       text-align: center;
-      margin: 20px;
+      margin: 28px;
     }
     .buttons button {
-      padding: 10px 28px;
-      margin: 5px;
-      background: #2e7d32;
+      padding: 11px 30px;
+      margin: 6px;
+      background: linear-gradient(90deg,#218838 60%,#2e7d32 100%);
       color: white;
       border: none;
-      border-radius: 5px;
-      font-size: 15px;
+      border-radius: 6px;
+      font-size: 16px;
       cursor: pointer;
       font-weight: bold;
       letter-spacing: 0.5px;
-      transition: background 0.2s;
+      box-shadow: 0 2px 6px #e0ffe7;
+      transition: background 0.18s, box-shadow 0.18s;
     }
     .buttons button:hover {
-      background: #1b5e20;
+      background: #176d4d;
+      box-shadow: 0 4px 12px #b2dfdb;
     }
+    /* Hide all .noprint elements when printing */
     @media print {
-      .buttons {
-        display: none;
+      .noprint {
+        display: none !important;
       }
-      .record-box {
-        box-shadow: none;
-        border: none;
-        margin: 0;
-        width: 100vw;
-        padding: 0;
+      .buttons {
+        display: none !important;
       }
       body {
-        background: #fff;
+        background: #fff !important;
+      }
+      .record-box, .academy-address-box {
+        box-shadow: none !important;
+        border: none !important;
+      }
+      /* Reduce page margins for print */
+      @page {
+        margin: 10mm 15mm;
       }
     }
   </style>
-  <!-- NoPrint.js for copy/screenshot/print lock -->
-  <script language="javascript">
-    var noPrint = true;
-    var noCopy = true;
-    var noScreenshot = true;
-    var autoBlur = true;
-  </script>
-  <script type="text/javascript" src="https://pdfanticopy.com/noprint.js"></script>
 </head>
 <body oncontextmenu="return false;" ondragstart="return false;">
-  <div class="record-box" id="printRecord">
-    <!-- Data yahan JS se aayega -->
+  <!-- Hide this line and anything else above record in print -->
+  <div class="record-box" id="printRecord"></div>
+  <div class="academy-address-box">
+    <div class="academy-address-label">COACHING ADDRESS</div>
+    <div class="academy-address">
+      Nearest of Govt. Girls Hr. Sec. School, Rajendra Ward Sohagpur, Dist. Naramadapuram (M.P.)
+    </div>
+    <div class="academy-contact">
+      Contact No. : 990708044, 7067779214, 8319172574
+    </div>
   </div>
-  <div class="buttons">
+  <div class="buttons noprint">
     <button onclick="window.print()">🖨️ Print Report</button>
     <button onclick="window.close()">🔙 Close</button>
   </div>
@@ -160,7 +234,6 @@ function renderRecord(data) {
   // Fees collection rows
   let rows = '';
   let grandTotal = 0;
-  // Handle both array (new) and string (old) formats for collection
   let collectionArr = [];
   try {
     collectionArr = typeof data.collection === "string" && data.collection.trim().startsWith("[")
@@ -191,6 +264,11 @@ function renderRecord(data) {
     <div class="header">
       <h1>CHITRAGUPT ACADEMY</h1>
       <h2>AN ISO CERTIFIED INSTITUTION</h2>
+      <div class="header-details">
+        <div class="director">Director : Mr. Ashish Kumar Khare</div>
+        <div class="teacher">Computer Teacher : Mr. Pawan Soni</div>
+      </div>
+      <hr class="double-line">
     </div>
     <div class="section-title">STUDENT DETAILS</div>
     <div class="row">
@@ -234,7 +312,7 @@ function renderRecord(data) {
         ${rows}
       </tbody>
     </table>
-    <div class="row" style="margin-top: 10px;">
+    <div class="row" style="margin-top: 12px;">
       <div><strong>Grand Total:</strong> ₹ ${grandTotal.toFixed(2)}</div>
       <div><strong>Date:</strong> ${dateStr}</div>
     </div>
@@ -249,5 +327,14 @@ window.onload = function() {
   renderRecord(JSON.parse(data));
 };
 </script>
+<!--
+======================
+PRINTING INSTRUCTIONS:
+======================
+To remove the date, time, title, URL, and file name from the print page,
+when you press Print (Ctrl+P), go to "More settings" and uncheck "Headers and footers".
+This is a browser setting and cannot be controlled by code.
+======================
+-->
 </body>
 </html>
