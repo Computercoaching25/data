@@ -3,181 +3,204 @@
 <head>
   <meta charset="UTF-8">
   <title>Student Record | CHITRAGUPT ACADEMY</title>
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Segoe+UI:400,700&display=swap" rel="stylesheet">
   <style>
     html, body {
-      font-size: 16px;
-      background: #e9ecef;
+      font-size: 15px !important;
+      background: #f5f7fa;
       margin: 0;
       user-select: none;
-      font-family: 'Roboto', Arial, sans-serif;
-      transition: background 0.3s ease;
     }
-
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      user-select: none;
+    }
     .record-box {
-      width: 90%;
-      max-width: 900px;
+      width: 820px;
       margin: 36px auto;
-      background: #ffffff;
-      padding: 30px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      border-radius: 12px;
+      background: #fff;
+      padding: 28px 38px 18px 38px;
+      box-shadow: 0 4px 32px 0 rgba(44,62,80,0.13);
+      border-radius: 14px;
+      box-sizing: border-box;
+      border: 1.5px solid #e0e0e0;
       position: relative;
-      animation: fadeIn 0.5s ease;
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
     .header {
       text-align: center;
-      margin-bottom: 20px;
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
     }
-
     .header h1 {
-      font-size: 32px;
-      color: #28a745;
+      margin: 0;
+      font-size: 28px;
+      color: #218838;
       font-weight: 700;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      letter-spacing: 1.5px;
+      text-shadow: 0 2px 6px #e0ffe7;
     }
-
     .header h2 {
-      font-size: 18px;
+      margin: 7px 0 0;
+      font-size: 15.5px;
       color: #555;
       font-weight: 500;
+      letter-spacing: 1px;
     }
-
     .header-details {
       display: flex;
       justify-content: space-between;
-      margin: 20px 0;
+      align-items: center;
+      margin: 18px 0 8px 0;
     }
-
     .director, .teacher {
-      font-size: 16px;
+      font-size: 15px;
       color: #333;
       font-weight: 600;
+      letter-spacing: 0.5px;
     }
-
+    .double-line {
+      border: none;
+      border-top: 3.5px double #4caf50;
+      margin: 0 0 18px 0;
+      height: 0;
+    }
     .section-title {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: bold;
-      margin: 20px 0;
+      margin-top: 22px;
+      border-bottom: 1.5px dashed #b2dfdb;
+      padding-bottom: 6px;
       color: #176d4d;
-      border-bottom: 2px solid #b2dfdb;
-      padding-bottom: 5px;
+      letter-spacing: 0.7px;
+      background: linear-gradient(90deg, #e0ffe7 0%, #fff 100%);
     }
-
     .row {
       display: flex;
       justify-content: space-between;
       margin: 12px 0;
-      gap: 20px;
+      gap: 24px;
     }
-
     .label {
       font-weight: bold;
       font-size: 16px;
+      width: 185px;
       color: #218838;
+      letter-spacing: 0.3px;
     }
-
     .value {
       flex: 1;
       font-size: 15px;
       color: #222;
     }
-
     .photo {
       text-align: right;
     }
-
     .photo img {
-      width: 120px;
-      height: 150px;
+      width: 108px;
+      height: 128px;
       object-fit: cover;
-      border: 3px solid #28a745;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s;
+      border: 2.5px solid #218838;
+      border-radius: 8px;
+      background: #f8f8f8;
+      box-shadow: 0 2px 8px #e0ffe7;
     }
-
-    .photo img:hover {
-      transform: scale(1.05);
-    }
-
-    table {
+ table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 20px;
+      margin-top: 17px;
       font-size: 15px;
       background: #f9fffb;
       border-radius: 8px;
     }
-
     table th, table td {
       border: 1.5px solid #b2dfdb;
-      padding: 10px;
+      padding: 7px 0;
       text-align: center;
-      transition: background 0.3s;
     }
-
     table th {
       background: #b2dfdb;
+      font-size: 16px;
       font-weight: bold;
       color: #176d4d;
     }
-
     table tr:nth-child(even) td {
       background: #f3f9f7;
     }
-
-    table tr:hover td {
-      background: #d1e7dd;
-    }
-
     .footer {
       text-align: center;
-      margin-top: 20px;
-      font-size: 14px;
+      margin-top: 18px;
+      font-size: 13.5px;
       color: #646464;
+      letter-spacing: 0.3px;
     }
-
+    .academy-address-box {
+      margin: 30px auto 6px auto;
+      text-align: center;
+      background: linear-gradient(90deg,#e0f7fa 0%, #fff 100%);
+      border-radius: 8px;
+      padding: 14px 0 10px 0;
+      border: 1.5px solid #b2dfdb;
+      width: 97%;
+      box-shadow: 0 1px 8px #e0ffe7;
+    }
+    .academy-address-label {
+      font-size: 18px;
+      font-weight: 900;
+      color: #01301f;
+      margin-bottom: 5px;
+      letter-spacing: 0.5px;
+    }
+    .academy-address {
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 2px;
+      font-weight: 700;
+    }
+    .academy-contact {
+      font-size: 16px;
+      color: #022c05;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
     .buttons {
       text-align: center;
-      margin: 30px 0;
+      margin: 28px;
     }
-
     .buttons button {
-      padding: 12px 25px;
+      padding: 11px 30px;
       margin: 6px;
-      background: linear-gradient(90deg, #28a745 60%, #2e7d32 100%);
+      background: linear-gradient(90deg,#218838 60%,#2e7d32 100%);
       color: white;
       border: none;
       border-radius: 6px;
       font-size: 16px;
       cursor: pointer;
       font-weight: bold;
-      transition: background 0.3s, transform 0.3s;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 6px #e0ffe7;
+      transition: background 0.18s, box-shadow 0.18s;
     }
-
     .buttons button:hover {
       background: #176d4d;
-      transform: translateY(-2px);
+      box-shadow: 0 4px 12px #b2dfdb;
     }
-
+    /* Hide all .noprint elements when printing */
     @media print {
       .noprint {
+        display: none !important;
+      }
+      .buttons {
         display: none !important;
       }
       body {
         background: #fff !important;
       }
-      .record-box {
+      .record-box, .academy-address-box {
         box-shadow: none !important;
         border: none !important;
       }
+      /* Reduce page margins for print */
       @page {
         margin: 10mm 15mm;
       }
@@ -185,6 +208,7 @@
   </style>
 </head>
 <body oncontextmenu="return false;" ondragstart="return false;">
+  <!-- Hide this line and anything else above record in print -->
   <div class="record-box" id="printRecord"></div>
   <div class="academy-address-box">
     <div class="academy-address-label">COACHING ADDRESS</div>
@@ -205,6 +229,7 @@ function getQueryParam(name) {
   return url.searchParams.get(name);
 }
 function renderRecord(data) {
+  // Fees collection rows
   let rows = '';
   let grandTotal = 0;
   let collectionArr = [];
@@ -217,20 +242,23 @@ function renderRecord(data) {
         });
   } catch {
     collectionArr = [];
-  }
-  collectionArr.forEach(row => {
-    if (!row.pid) return;
-    let formattedDate = row.date.includes('-') ? row.date.trim().split('-').reverse().join('-') : row.date.trim();
-    rows += `<tr>
-      <td>${row.pid.trim()}</td>
-      <td>${formattedDate}</td>
-      <td>${row.mon.trim()}</td>
-      <td>₹ ${row.amt.trim()}</td>
-      <td>${row.mode.trim()}</td>
-    </tr>`;
-    grandTotal += parseFloat(row.amt || 0);
-  });
+  }collectionArr.forEach(row => {
+  if (!row.pid) return;
+  
+  // Convert date format from yyyy-mm-dd to dd-mm-yyyy
+  let formattedDate = row.date.includes('-') ? row.date.trim().split('-').reverse().join('-') : row.date.trim();
 
+  rows += `<tr>
+    <td>${row.pid.trim()}</td>
+    <td>${formattedDate}</td>
+    <td>${row.mon.trim()}</td>
+    <td>₹ ${row.amt.trim()}</td>
+    <td>${row.mode.trim()}</td>
+  </tr>`;
+  grandTotal += parseFloat(row.amt || 0);
+});
+
+  // Date
   let today = new Date();
   let dateStr = today.toLocaleDateString('en-IN', { day:'2-digit', month:'long', year:'numeric' });
 
@@ -257,7 +285,7 @@ function renderRecord(data) {
         <div><span class="label">Address:</span> <span class="value">${data.address}</span></div>
       </div>
       <div class="photo">
-        <img src="${data.photo || 'https://via.placeholder.com/120x150?text=Photo'}" alt="Student Photo">
+        <img src="${data.photo || 'https://via.placeholder.com/100x120?text=Photo'}" alt="Student Photo">
       </div>
     </div>
     <div class="section-title">FEES DETAIL</div>
@@ -301,5 +329,14 @@ window.onload = function() {
   renderRecord(JSON.parse(data));
 };
 </script>
+<!--
+======================
+PRINTING INSTRUCTIONS:
+======================
+To remove the date, time, title, URL, and file name from the print page,
+when you press Print (Ctrl+P), go to "More settings" and uncheck "Headers and footers".
+This is a browser setting and cannot be controlled by code.
+======================
+-->
 </body>
 </html>
